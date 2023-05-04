@@ -386,6 +386,7 @@ def find_stu_book():
         return jsonify([{'stu': 2}])  # 到期
     if stu.loss is True:
         return jsonify([{'stu': 3}])  # 已经挂失
+
     books = db.session.query(Book).join(Inventory).filter(Book.book_name.contains(request.form.get('book_name')),
         Inventory.status == 1).with_entities(Inventory.barcode, Book.isbn, Book.book_name, Book.author, Book.press).\
         all()
